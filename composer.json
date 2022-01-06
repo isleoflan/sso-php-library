@@ -1,0 +1,22 @@
+{
+    "name": "isleoflan/iol-sso-library",
+    "description": "Library for the Isle of LAN SSO Service",
+    "type": "library",
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "IOL\\SSO\\SDK\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "stui",
+            "email": "stui@isleoflan.ch"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0",
+        "ext-curl": "*"
+    }
+}
