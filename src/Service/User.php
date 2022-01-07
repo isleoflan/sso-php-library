@@ -1,5 +1,9 @@
 <?php
 
+    declare(strict_types=1);
+
+    namespace IOL\SSO\SDK\Service;
+
     use IOL\SSO\SDK\Client;
     use IOL\SSO\SDK\Enums\HttpMethod;
     use JetBrains\PhpStorm\ArrayShape;
