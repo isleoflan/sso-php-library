@@ -10,8 +10,6 @@
 
     class User
     {
-        public const ENDPOINT_URL = 'user/info';
-
         private Client $client;
 
         public function __construct(Client $client)
