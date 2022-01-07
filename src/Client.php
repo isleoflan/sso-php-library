@@ -13,9 +13,10 @@
     {
         public const BASE_URI = 'https://api.sso.isleoflan.ch/v1';
 
+        private ?string $accessToken = null;
+
         public function __construct(
-            private string $appToken,
-            private string $apiKey,
+            private string $appToken
         )
         {
         }
@@ -32,12 +33,14 @@
                 default => $url
             };
             $apiRequest = curl_init($url);
-            curl_setopt($apiRequest, CURLOPT_HTTPHEADER, [
-                               "Authorization: Bearer " . $this->getApiKey(),
-                               "Iol-App-Token: ".$this->getAppToken(),
-                               "Content-Type: application/json"
-                           ]
-            );
+            $headers = [
+                'Iol-App-Token: '.$this->getAppToken(),
+                'Content-Type: application/json'
+            ];
+            if(!is_null($this->getAccessToken())){
+                $headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
+            }
+            curl_setopt($apiRequest, CURLOPT_HTTPHEADER, $headers);
             switch($method->jsonSerialize()){
                 case HttpMethod::POST:
                     curl_setopt($apiRequest, CURLOPT_POST, true);
@@ -73,22 +76,6 @@
         /**
          * @return string
          */
-        private function getApiKey(): string
-        {
-            return $this->apiKey;
-        }
-
-        /**
-         * @param string $apiKey
-         */
-        public function setApiKey(string $apiKey): void
-        {
-            $this->apiKey = $apiKey;
-        }
-
-        /**
-         * @return string
-         */
         public function getAppToken(): string
         {
             return $this->appToken;
@@ -100,6 +87,22 @@
         public function setAppToken(string $appToken): void
         {
             $this->appToken = $appToken;
+        }
+
+        /**
+         * @return string|null
+         */
+        public function getAccessToken(): ?string
+        {
+            return $this->accessToken;
+        }
+
+        /**
+         * @param string|null $accessToken
+         */
+        public function setAccessToken(?string $accessToken): void
+        {
+            $this->accessToken = $accessToken;
         }
 
 
