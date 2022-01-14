@@ -11,7 +11,7 @@
 
     class Client
     {
-        public const BASE_URI = 'https://api.sso.isleoflan.ch/v1';
+        public const BASE_URI = 'https://api.sso.isleoflan.ch/v1/';
 
         private ?string $accessToken = null;
 
