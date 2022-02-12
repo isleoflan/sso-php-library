@@ -6,6 +6,8 @@
 
     use IOL\SSO\SDK\Client;
     use IOL\SSO\SDK\Enums\HttpMethod;
+    use IOL\SSO\SDK\Exceptions\AuthenticationException;
+    use IOL\SSO\SDK\Exceptions\ResponseException;
     use JetBrains\PhpStorm\ArrayShape;
 
     class User
@@ -18,17 +20,17 @@
         }
 
         /**
-         * @throws \IOL\SSO\SDK\Exceptions\AuthenticationException
-         * @throws \IOL\SSO\SDK\Exceptions\ResponseException
+         * @throws AuthenticationException
+         * @throws ResponseException
          */
         #[ArrayShape(['httpCode' => "int", 'response' => "array"])]
-        public function getUserInfo(): array
+        public function getUserInfo(?string $userId): array
         {
             if($this->client->getAccessToken() === null){
-                throw new \IOL\SSO\SDK\Exceptions\AuthenticationException('No Access Token has been provided', 1001);
+                throw new AuthenticationException('No Access Token has been provided', 1001);
             }
             return $this->client->send(
-                url: $this->client::BASE_URI . 'user/info',
+                url: $this->client::BASE_URI . 'user/info'. ($userId ?? ''),
                 data: [],
                 method: new HttpMethod(HttpMethod::GET)
             );
