@@ -26,9 +26,6 @@
         #[ArrayShape(['httpCode' => "int", 'response' => "array"])]
         public function getUserInfo(?string $userId): array
         {
-            if($this->client->getAccessToken() === null){
-                throw new AuthenticationException('No Access Token has been provided', 1001);
-            }
             return $this->client->send(
                 url: $this->client::BASE_URI . 'user/info'. ($userId ?? ''),
                 data: [],
