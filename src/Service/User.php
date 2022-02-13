@@ -27,7 +27,7 @@
         public function getUserInfo(?string $userId): array
         {
             return $this->client->send(
-                url: $this->client::BASE_URI . 'user/info'. ($userId ?? ''),
+                url: $this->client::BASE_URI . 'user/info'. (is_null($userId) ? '' : '?userId='.$userId),
                 data: [],
                 method: new HttpMethod(HttpMethod::GET)
             );
