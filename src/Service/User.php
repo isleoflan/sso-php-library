@@ -32,4 +32,18 @@
                 method: new HttpMethod(HttpMethod::GET)
             );
         }
+
+        /**
+         * @throws AuthenticationException
+         * @throws ResponseException
+         */
+        #[ArrayShape(['httpCode' => "int", 'response' => "array"])]
+        public function getList(): array
+        {
+            return $this->client->send(
+                url: $this->client::BASE_URI . 'user/list',
+                data: [],
+                method: new HttpMethod(HttpMethod::GET)
+            );
+        }
     }
