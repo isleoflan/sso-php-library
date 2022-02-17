@@ -24,7 +24,7 @@
          * @throws ResponseException
          */
         #[ArrayShape(['httpCode' => "int", 'response' => "array"])]
-        public function getUserInfo(?string $userId): array
+        public function getUserInfo(?string $userId = null): array
         {
             return $this->client->send(
                 url: $this->client::BASE_URI . 'user/info'. (is_null($userId) ? '' : '?userId='.$userId),
